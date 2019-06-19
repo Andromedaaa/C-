@@ -1,0 +1,54 @@
+#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstring> 
+using namespace std;
+
+
+bool notprime[MAXN];
+
+
+const int MAXN=1000;
+
+
+void init();
+
+
+
+
+int main (){
+	int m,p,q;int tot=0,sum=0,maxn=0;
+	
+	init();
+	
+	for(m=1;m<=9;m++)
+	for(p=0;p<=9;p++)
+	for(q=0;q<=9;q++){
+		if(!notprime[m*100+p*10+q]&&!notprime[m+p+q]&&!notprime[m*p*q]&&!notprime[m*m+p*p+q*q]){
+			tot+=1;sum+=m*100+p*10+q;maxn=max(maxn,m*100+p*10+q);
+		}
+	}
+	
+	cout << tot << sum << maxn;
+
+	return 0;
+}
+
+
+
+
+void init() {
+	memset(notprime,false,sizeof(notprime));
+	notprime[0]=notprime[1]=true;
+	for(int m=2; m<MAXN; m++)
+		if(!notprime[m]) {
+			if(m>MAXN/m){
+				continue;
+			}
+			
+			for(int p=m*m; p<MAXN; p+=m){
+				notprime[p]=true;
+			}
+		
+	}
+}
